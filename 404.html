@@ -43,7 +43,7 @@
       });
 
       Module = {
-        wasmBinaryFile: '/fumicore.wasm',
+        wasmBinaryFile: '/fumi/fumicore.wasm',
         onRuntimeInitialized: function() {
           emscripenLoaded = true;
           if (allLoaded() && !notifierExecuted) {
@@ -53,6 +53,6 @@
       };
     })();
     </script>
-    <script src="/client.js"></script>
+    <script src="/fumi/client.js"></script>
   </body>
 </html>
