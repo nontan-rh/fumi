@@ -21,7 +21,7 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
 } else {
   ENVIRONMENT_IS_WEB = (typeof window === "undefined" ? "undefined" : _typeof(window)) === "object";ENVIRONMENT_IS_WORKER = typeof importScripts === "function";ENVIRONMENT_IS_NODE = (typeof process === "undefined" ? "undefined" : _typeof(process)) === "object" && typeof require === "function" && !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_WORKER;ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER;
 }if (ENVIRONMENT_IS_NODE) {
-  if (!Module["print"]) Module["print"] = console.log;if (!Module["printErr"]) Module["printErr"] = console.warn;var nodeFS;var nodePath;Module["read"] = function read(filename, binary) {
+  if (!Module["print"]) Module["print"] = console.log;if (!Module["printErr"]) Module["printErr"] = console.warn;var nodeFS;var nodePath;Module["read"] = function shell_read(filename, binary) {
     if (!nodeFS) nodeFS = require("fs");if (!nodePath) nodePath = require("path");filename = nodePath["normalize"](filename);var ret = nodeFS["readFileSync"](filename);return binary ? ret : ret.toString();
   };Module["readBinary"] = function readBinary(filename) {
     var ret = Module["read"](filename, true);if (!ret.buffer) {
@@ -48,7 +48,7 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   if (!Module["print"]) Module["print"] = print;if (typeof printErr != "undefined") Module["printErr"] = printErr;if (typeof read != "undefined") {
     Module["read"] = read;
   } else {
-    Module["read"] = function read() {
+    Module["read"] = function shell_read() {
       throw "no read() available";
     };
   }Module["readBinary"] = function readBinary(f) {
@@ -65,11 +65,11 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
     };
   }
 } else if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
-  Module["read"] = function read(url) {
+  Module["read"] = function shell_read(url) {
     var xhr = new XMLHttpRequest();xhr.open("GET", url, false);xhr.send(null);return xhr.responseText;
   };if (ENVIRONMENT_IS_WORKER) {
-    Module["readBinary"] = function read(url) {
-      var xhr = new XMLHttpRequest();xhr.open("GET", url, false);xhr.responseType = "arraybuffer";xhr.send(null);return xhr.response;
+    Module["readBinary"] = function readBinary(url) {
+      var xhr = new XMLHttpRequest();xhr.open("GET", url, false);xhr.responseType = "arraybuffer";xhr.send(null);return new Uint8Array(xhr.response);
     };
   }Module["readAsync"] = function readAsync(url, onload, onerror) {
     var xhr = new XMLHttpRequest();xhr.open("GET", url, true);xhr.responseType = "arraybuffer";xhr.onload = function xhr_onload() {
@@ -82,9 +82,9 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   };if (typeof arguments != "undefined") {
     Module["arguments"] = arguments;
   }if (typeof console !== "undefined") {
-    if (!Module["print"]) Module["print"] = function print(x) {
+    if (!Module["print"]) Module["print"] = function shell_print(x) {
       console.log(x);
-    };if (!Module["printErr"]) Module["printErr"] = function printErr(x) {
+    };if (!Module["printErr"]) Module["printErr"] = function shell_printErr(x) {
       console.warn(x);
     };
   } else {
@@ -446,7 +446,7 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   if (x % multiple > 0) {
     x += multiple - x % multiple;
   }return x;
-}var HEAP;var buffer;var HEAP8, HEAPU8, HEAP16, HEAPU16, HEAP32, HEAPU32, HEAPF32, HEAPF64;function updateGlobalBuffer(buf) {
+}var HEAP, buffer, HEAP8, HEAPU8, HEAP16, HEAPU16, HEAP32, HEAPU32, HEAPF32, HEAPF64;function updateGlobalBuffer(buf) {
   Module["buffer"] = buffer = buf;
 }function updateGlobalBufferViews() {
   Module["HEAP8"] = HEAP8 = new Int8Array(buffer);Module["HEAP16"] = HEAP16 = new Int16Array(buffer);Module["HEAP32"] = HEAP32 = new Int32Array(buffer);Module["HEAPU8"] = HEAPU8 = new Uint8Array(buffer);Module["HEAPU16"] = HEAPU16 = new Uint16Array(buffer);Module["HEAPU32"] = HEAPU32 = new Uint32Array(buffer);Module["HEAPF32"] = HEAPF32 = new Float32Array(buffer);Module["HEAPF64"] = HEAPF64 = new Float64Array(buffer);
@@ -553,7 +553,9 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
     }
   }
 }Module["removeRunDependency"] = removeRunDependency;Module["preloadedImages"] = {};Module["preloadedAudios"] = {};var memoryInitializer = null;function integrateWasmJS(Module) {
-  var method = Module["wasmJSMethod"] || "native-wasm";Module["wasmJSMethod"] = method;var wasmTextFile = Module["wasmTextFile"] || "fumicore-03a242ed4627d455.wast";var wasmBinaryFile = Module["wasmBinaryFile"] || "fumicore-03a242ed4627d455.wasm";var asmjsCodeFile = Module["asmjsCodeFile"] || "fumicore-03a242ed4627d455.asm.js";var wasmPageSize = 64 * 1024;var asm2wasmImports = { "f64-rem": function f64Rem(x, y) {
+  var method = Module["wasmJSMethod"] || "native-wasm";Module["wasmJSMethod"] = method;var wasmTextFile = Module["wasmTextFile"] || "fumicore-03a242ed4627d455.wast";var wasmBinaryFile = Module["wasmBinaryFile"] || "fumicore-03a242ed4627d455.wasm";var asmjsCodeFile = Module["asmjsCodeFile"] || "fumicore-03a242ed4627d455.asm.js";if (typeof Module["locateFile"] === "function") {
+    wasmTextFile = Module["locateFile"](wasmTextFile);wasmBinaryFile = Module["locateFile"](wasmBinaryFile);asmjsCodeFile = Module["locateFile"](asmjsCodeFile);
+  }var wasmPageSize = 64 * 1024;var asm2wasmImports = { "f64-rem": function f64Rem(x, y) {
       return x % y;
     }, "f64-to-int": function f64ToInt(x) {
       return x | 0;
@@ -588,17 +590,23 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
       var fixed = i;if (fixed[0] == "_") fixed = fixed.substr(1);ret[fixed] = imports[i];
     }return ret;
   }function getBinary() {
-    var binary;if (Module["wasmBinary"]) {
-      binary = Module["wasmBinary"];binary = new Uint8Array(binary);
-    } else if (Module["readBinary"]) {
-      binary = Module["readBinary"](wasmBinaryFile);
-    } else {
-      throw "on the web, we need the wasm binary to be preloaded and set on Module['wasmBinary']. emcc.py will do that for you when generating HTML (but not JS)";
-    }return binary;
+    try {
+      var binary;if (Module["wasmBinary"]) {
+        binary = Module["wasmBinary"];binary = new Uint8Array(binary);
+      } else if (Module["readBinary"]) {
+        binary = Module["readBinary"](wasmBinaryFile);
+      } else {
+        throw "on the web, we need the wasm binary to be preloaded and set on Module['wasmBinary']. emcc.py will do that for you when generating HTML (but not JS)";
+      }return binary;
+    } catch (err) {
+      abort(err);
+    }
   }function getBinaryPromise() {
     if (!Module["wasmBinary"] && typeof fetch === "function") {
-      return fetch(wasmBinaryFile).then(function (response) {
-        return response["arrayBuffer"]();
+      return fetch(wasmBinaryFile, { credentials: "same-origin" }).then(function (response) {
+        if (!response["ok"]) {
+          throw "failed to load wasm binary file at '" + wasmBinaryFile + "'";
+        }return response["arrayBuffer"]();
       });
     }return new Promise(function (resolve, reject) {
       resolve(getBinary());
@@ -626,12 +634,12 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
       } catch (e) {
         Module["printErr"]("Module.instantiateWasm callback failed with error: " + e);return false;
       }
-    }Module["printErr"]("asynchronously preparing wasm");getBinaryPromise().then(function (binary) {
+    }getBinaryPromise().then(function (binary) {
       return WebAssembly.instantiate(binary, info);
     }).then(function (output) {
       receiveInstance(output["instance"]);
     }).catch(function (reason) {
-      Module["printErr"]("failed to asynchronously prepare wasm: " + reason);Module["quit"](1, reason);
+      Module["printErr"]("failed to asynchronously prepare wasm: " + reason);abort(reason);
     });return {};
   }function doWasmPolyfill(global, env, providedBuffer, method) {
     if (typeof WasmJS !== "function") {
@@ -651,7 +659,7 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
     }wasmJS["_free"](temp);wasmJS["_instantiate"](temp);if (Module["newBuffer"]) {
       mergeMemory(Module["newBuffer"]);Module["newBuffer"] = null;
     }exports = wasmJS["asmExports"];return exports;
-  }Module["asmPreload"] = Module["asm"];Module["reallocBuffer"] = function (size) {
+  }Module["asmPreload"] = Module["asm"];var asmjsReallocBuffer = Module["reallocBuffer"];var wasmReallocBuffer = function wasmReallocBuffer(size) {
     var PAGE_MULTIPLE = Module["usingWasm"] ? WASM_PAGE_SIZE : ASMJS_PAGE_SIZE;size = alignUp(size, PAGE_MULTIPLE);var old = Module["buffer"];var oldSize = old.byteLength;if (Module["usingWasm"]) {
       try {
         var result = Module["wasmMemory"].grow((size - oldSize) / wasmPageSize);if (result !== (-1 | 0)) {
@@ -665,7 +673,13 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
     } else {
       exports["__growWasmMemory"]((size - oldSize) / wasmPageSize);return Module["buffer"] !== old ? Module["buffer"] : null;
     }
-  };Module["asm"] = function (global, env, providedBuffer) {
+  };Module["reallocBuffer"] = function (size) {
+    if (finalMethod === "asmjs") {
+      return asmjsReallocBuffer(size);
+    } else {
+      return wasmReallocBuffer(size);
+    }
+  };var finalMethod = "";Module["asm"] = function (global, env, providedBuffer) {
     global = fixImports(global);env = fixImports(env);if (!env["table"]) {
       var TABLE_SIZE = Module["wasmTableSize"];if (TABLE_SIZE === undefined) TABLE_SIZE = 1024;var MAX_TABLE_SIZE = Module["wasmMaxTableSize"];if ((typeof WebAssembly === "undefined" ? "undefined" : _typeof(WebAssembly)) === "object" && typeof WebAssembly.Table === "function") {
         if (MAX_TABLE_SIZE !== undefined) {
@@ -681,18 +695,18 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
     }if (!env["tableBase"]) {
       env["tableBase"] = 0;
     }var exports;var methods = method.split(",");for (var i = 0; i < methods.length; i++) {
-      var curr = methods[i];Module["printErr"]("trying binaryen method: " + curr);if (curr === "native-wasm") {
+      var curr = methods[i];finalMethod = curr;if (curr === "native-wasm") {
         if (exports = doNativeWasm(global, env, providedBuffer)) break;
       } else if (curr === "asmjs") {
         if (exports = doJustAsm(global, env, providedBuffer)) break;
       } else if (curr === "interpret-asm2wasm" || curr === "interpret-s-expr" || curr === "interpret-binary") {
         if (exports = doWasmPolyfill(global, env, providedBuffer, curr)) break;
       } else {
-        throw "bad method: " + curr;
+        abort("bad method: " + curr);
       }
-    }if (!exports) throw "no binaryen method succeeded. consider enabling more options, like interpreting, if you want that: https://github.com/kripken/emscripten/wiki/WebAssembly#binaryen-methods";Module["printErr"]("binaryen method succeeded.");return exports;
+    }if (!exports) throw "no binaryen method succeeded. consider enabling more options, like interpreting, if you want that: https://github.com/kripken/emscripten/wiki/WebAssembly#binaryen-methods";return exports;
   };var methodHandler = Module["asm"];
-}integrateWasmJS(Module);var ASM_CONSTS = [];STATIC_BASE = 1024;STATICTOP = STATIC_BASE + 31056;__ATINIT__.push();memoryInitializer = Module["wasmJSMethod"].indexOf("asmjs") >= 0 || Module["wasmJSMethod"].indexOf("interpret-asm2wasm") >= 0 ? "fumicore-03a242ed4627d455.js.mem" : null;var STATIC_BUMP = 31056;Module["STATIC_BASE"] = STATIC_BASE;Module["STATIC_BUMP"] = STATIC_BUMP;var tempDoublePtr = STATICTOP;STATICTOP += 16;function __ZSt18uncaught_exceptionv() {
+}integrateWasmJS(Module);var ASM_CONSTS = [];STATIC_BASE = Runtime.GLOBAL_BASE;STATICTOP = STATIC_BASE + 31056;__ATINIT__.push();memoryInitializer = Module["wasmJSMethod"].indexOf("asmjs") >= 0 || Module["wasmJSMethod"].indexOf("interpret-asm2wasm") >= 0 ? "fumicore-03a242ed4627d455.js.mem" : null;var STATIC_BUMP = 31056;Module["STATIC_BASE"] = STATIC_BASE;Module["STATIC_BUMP"] = STATIC_BUMP;var tempDoublePtr = STATICTOP;STATICTOP += 16;function __ZSt18uncaught_exceptionv() {
   return !!__ZSt18uncaught_exceptionv.uncaught_exception;
 }var EXCEPTIONS = { last: 0, caught: [], infos: {}, deAdjust: function deAdjust(adjusted) {
     if (!adjusted || EXCEPTIONS.infos[adjusted]) return adjusted;for (var ptr in EXCEPTIONS.infos) {
@@ -756,9 +770,7 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   return 0;
 }function _emscripten_memcpy_big(dest, src, num) {
   HEAPU8.set(HEAPU8.subarray(src, src + num), dest);return dest;
-}Module["_memcpy"] = _memcpy;Module["_memmove"] = _memmove;function _malloc(bytes) {
-  var ptr = Runtime.dynamicAlloc(bytes + 8);return ptr + 8 & 4294967288;
-}Module["_malloc"] = _malloc;function ___cxa_allocate_exception(size) {
+}Module["_memcpy"] = _memcpy;Module["_memmove"] = _memmove;function ___cxa_allocate_exception(size) {
   return _malloc(size);
 }var ERRNO_MESSAGES = { 0: "Success", 1: "Not super-user", 2: "No such file or directory", 3: "No such process", 4: "Interrupted system call", 5: "I/O error", 6: "No such device or address", 7: "Arg list too long", 8: "Exec format error", 9: "Bad file number", 10: "No children", 11: "No more processes", 12: "Not enough core", 13: "Permission denied", 14: "Bad address", 15: "Block device required", 16: "Mount device busy", 17: "File exists", 18: "Cross-device link", 19: "No such device", 20: "Not a directory", 21: "Is a directory", 22: "Invalid argument", 23: "Too many open files in system", 24: "Too many open files", 25: "Not a typewriter", 26: "Text file busy", 27: "File too large", 28: "No space left on device", 29: "Illegal seek", 30: "Read only file system", 31: "Too many links", 32: "Broken pipe", 33: "Math arg out of domain of func", 34: "Math result not representable", 35: "File locking deadlock error", 36: "File or path name too long", 37: "No record locks available", 38: "Function not implemented", 39: "Directory not empty", 40: "Too many symbolic links", 42: "No message of desired type", 43: "Identifier removed", 44: "Channel number out of range", 45: "Level 2 not synchronized", 46: "Level 3 halted", 47: "Level 3 reset", 48: "Link number out of range", 49: "Protocol driver not attached", 50: "No CSI structure available", 51: "Level 2 halted", 52: "Invalid exchange", 53: "Invalid request descriptor", 54: "Exchange full", 55: "No anode", 56: "Invalid request code", 57: "Invalid slot", 59: "Bad font file fmt", 60: "Device not a stream", 61: "No data (for no delay io)", 62: "Timer expired", 63: "Out of streams resources", 64: "Machine is not on the network", 65: "Package not installed", 66: "The object is remote", 67: "The link has been severed", 68: "Advertise error", 69: "Srmount error", 70: "Communication error on send", 71: "Protocol error", 72: "Multihop attempted", 73: "Cross mount point (not really error)", 74: "Trying to read unreadable message", 75: "Value too large for defined data type", 76: "Given log. name not unique", 77: "f.d. invalid for this operation", 78: "Remote address changed", 79: "Can   access a needed shared lib", 80: "Accessing a corrupted shared lib", 81: ".lib section in a.out corrupted", 82: "Attempting to link in too many libs", 83: "Attempting to exec a shared library", 84: "Illegal byte sequence", 86: "Streams pipe error", 87: "Too many users", 88: "Socket operation on non-socket", 89: "Destination address required", 90: "Message too long", 91: "Protocol wrong type for socket", 92: "Protocol not available", 93: "Unknown protocol", 94: "Socket type not supported", 95: "Not supported", 96: "Protocol family not supported", 97: "Address family not supported by protocol family", 98: "Address already in use", 99: "Address not available", 100: "Network interface is not configured", 101: "Network is unreachable", 102: "Connection reset by network", 103: "Connection aborted", 104: "Connection reset by peer", 105: "No buffer space available", 106: "Socket is already connected", 107: "Socket is not connected", 108: "Can't send after socket shutdown", 109: "Too many references", 110: "Connection timed out", 111: "Connection refused", 112: "Host is down", 113: "Host is unreachable", 114: "Socket already connected", 115: "Connection already in progress", 116: "Stale file handle", 122: "Quota exceeded", 123: "No medium (in tape drive)", 125: "Operation canceled", 130: "Previous owner died", 131: "State not recoverable" };function ___setErrNo(value) {
   if (Module["___errno_location"]) HEAP32[Module["___errno_location"]() >> 2] = value;return value;
@@ -2490,7 +2502,7 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
         offset_high = SYSCALLS.get(),
         offset_low = SYSCALLS.get(),
         result = SYSCALLS.get(),
-        whence = SYSCALLS.get();var offset = offset_low;assert(offset_high === 0);FS.llseek(stream, offset, whence);HEAP32[result >> 2] = stream.position;if (stream.getdents && offset === 0 && whence === 0) stream.getdents = null;return 0;
+        whence = SYSCALLS.get();var offset = offset_low;FS.llseek(stream, offset, whence);HEAP32[result >> 2] = stream.position;if (stream.getdents && offset === 0 && whence === 0) stream.getdents = null;return 0;
   } catch (e) {
     if (typeof FS === "undefined" || !(e instanceof FS.ErrnoError)) abort(e);return -e.errno;
   }
@@ -2853,7 +2865,9 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
     process["exit"](status);
   }Module["quit"](status, new ExitStatus(status));
 }Module["exit"] = Module.exit = exit;var abortDecorators = [];function abort(what) {
-  if (what !== undefined) {
+  if (Module["onAbort"]) {
+    Module["onAbort"](what);
+  }if (what !== undefined) {
     Module.print(what);Module.printErr(what);what = JSON.stringify(what);
   } else {
     what = "";
