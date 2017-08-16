@@ -706,7 +706,7 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
       }
     }if (!exports) throw "no binaryen method succeeded. consider enabling more options, like interpreting, if you want that: https://github.com/kripken/emscripten/wiki/WebAssembly#binaryen-methods";return exports;
   };var methodHandler = Module["asm"];
-}integrateWasmJS(Module);var ASM_CONSTS = [];STATIC_BASE = Runtime.GLOBAL_BASE;STATICTOP = STATIC_BASE + 31056;__ATINIT__.push();memoryInitializer = Module["wasmJSMethod"].indexOf("asmjs") >= 0 || Module["wasmJSMethod"].indexOf("interpret-asm2wasm") >= 0 ? "fumicore-03a242ed4627d455.js.mem" : null;var STATIC_BUMP = 31056;Module["STATIC_BASE"] = STATIC_BASE;Module["STATIC_BUMP"] = STATIC_BUMP;var tempDoublePtr = STATICTOP;STATICTOP += 16;function __ZSt18uncaught_exceptionv() {
+}integrateWasmJS(Module);var ASM_CONSTS = [];STATIC_BASE = Runtime.GLOBAL_BASE;STATICTOP = STATIC_BASE + 32784;__ATINIT__.push();memoryInitializer = Module["wasmJSMethod"].indexOf("asmjs") >= 0 || Module["wasmJSMethod"].indexOf("interpret-asm2wasm") >= 0 ? "fumicore-03a242ed4627d455.js.mem" : null;var STATIC_BUMP = 32784;Module["STATIC_BASE"] = STATIC_BASE;Module["STATIC_BUMP"] = STATIC_BUMP;var tempDoublePtr = STATICTOP;STATICTOP += 16;function __ZSt18uncaught_exceptionv() {
   return !!__ZSt18uncaught_exceptionv.uncaught_exception;
 }var EXCEPTIONS = { last: 0, caught: [], infos: {}, deAdjust: function deAdjust(adjusted) {
     if (!adjusted || EXCEPTIONS.infos[adjusted]) return adjusted;for (var ptr in EXCEPTIONS.infos) {
@@ -2554,7 +2554,7 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   TTY.shutdown();
 });if (ENVIRONMENT_IS_NODE) {
   var fs = require("fs");var NODEJS_PATH = require("path");NODEFS.staticInit();
-}___buildEnvironment(ENV);DYNAMICTOP_PTR = allocate(1, "i32", ALLOC_STATIC);STACK_BASE = STACKTOP = Runtime.alignMemory(STATICTOP);STACK_MAX = STACK_BASE + TOTAL_STACK;DYNAMIC_BASE = Runtime.alignMemory(STACK_MAX);HEAP32[DYNAMICTOP_PTR >> 2] = DYNAMIC_BASE;staticSealed = true;Module["wasmTableSize"] = 36864;Module["wasmMaxTableSize"] = 36864;function invoke_vi(index, a1) {
+}___buildEnvironment(ENV);DYNAMICTOP_PTR = allocate(1, "i32", ALLOC_STATIC);STACK_BASE = STACKTOP = Runtime.alignMemory(STATICTOP);STACK_MAX = STACK_BASE + TOTAL_STACK;DYNAMIC_BASE = Runtime.alignMemory(STACK_MAX);HEAP32[DYNAMICTOP_PTR >> 2] = DYNAMIC_BASE;staticSealed = true;Module["wasmTableSize"] = 43008;Module["wasmMaxTableSize"] = 43008;function invoke_vi(index, a1) {
   try {
     Module["dynCall_vi"](index, a1);
   } catch (e) {
@@ -2570,13 +2570,13 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   }
 }function jsCall_iiii(index, a1, a2, a3) {
   return Runtime.functionPointers[index](a1, a2, a3);
-}function invoke_viiiji(index, a1, a2, a3, a4, a5, a6) {
+}function invoke_viiiii(index, a1, a2, a3, a4, a5) {
   try {
-    Module["dynCall_viiiji"](index, a1, a2, a3, a4, a5, a6);
+    Module["dynCall_viiiii"](index, a1, a2, a3, a4, a5);
   } catch (e) {
     if (typeof e !== "number" && e !== "longjmp") throw e;Module["setThrew"](1, 0);
   }
-}function jsCall_viiiji(index, a1, a2, a3, a4, a5) {
+}function jsCall_viiiii(index, a1, a2, a3, a4, a5) {
   Runtime.functionPointers[index](a1, a2, a3, a4, a5);
 }function invoke_viiij(index, a1, a2, a3, a4, a5) {
   try {
@@ -2586,14 +2586,14 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   }
 }function jsCall_viiij(index, a1, a2, a3, a4) {
   Runtime.functionPointers[index](a1, a2, a3, a4);
-}function invoke_viiiii(index, a1, a2, a3, a4, a5) {
+}function invoke_viii(index, a1, a2, a3) {
   try {
-    Module["dynCall_viiiii"](index, a1, a2, a3, a4, a5);
+    Module["dynCall_viii"](index, a1, a2, a3);
   } catch (e) {
     if (typeof e !== "number" && e !== "longjmp") throw e;Module["setThrew"](1, 0);
   }
-}function jsCall_viiiii(index, a1, a2, a3, a4, a5) {
-  Runtime.functionPointers[index](a1, a2, a3, a4, a5);
+}function jsCall_viii(index, a1, a2, a3) {
+  Runtime.functionPointers[index](a1, a2, a3);
 }function invoke_i(index) {
   try {
     return Module["dynCall_i"](index);
@@ -2618,6 +2618,14 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   }
 }function jsCall_vii(index, a1, a2) {
   Runtime.functionPointers[index](a1, a2);
+}function invoke_viiiji(index, a1, a2, a3, a4, a5, a6) {
+  try {
+    Module["dynCall_viiiji"](index, a1, a2, a3, a4, a5, a6);
+  } catch (e) {
+    if (typeof e !== "number" && e !== "longjmp") throw e;Module["setThrew"](1, 0);
+  }
+}function jsCall_viiiji(index, a1, a2, a3, a4, a5) {
+  Runtime.functionPointers[index](a1, a2, a3, a4, a5);
 }function invoke_ii(index, a1) {
   try {
     return Module["dynCall_ii"](index, a1);
@@ -2650,6 +2658,14 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   }
 }function jsCall_iiiii(index, a1, a2, a3, a4) {
   return Runtime.functionPointers[index](a1, a2, a3, a4);
+}function invoke_viif(index, a1, a2, a3) {
+  try {
+    Module["dynCall_viif"](index, a1, a2, a3);
+  } catch (e) {
+    if (typeof e !== "number" && e !== "longjmp") throw e;Module["setThrew"](1, 0);
+  }
+}function jsCall_viif(index, a1, a2, a3) {
+  Runtime.functionPointers[index](a1, a2, a3);
 }function invoke_viiii(index, a1, a2, a3, a4) {
   try {
     Module["dynCall_viiii"](index, a1, a2, a3, a4);
@@ -2674,32 +2690,44 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   }
 }function jsCall_iiiiii(index, a1, a2, a3, a4, a5) {
   return Runtime.functionPointers[index](a1, a2, a3, a4, a5);
-}function invoke_viii(index, a1, a2, a3) {
+}function invoke_iiiif(index, a1, a2, a3, a4) {
   try {
-    Module["dynCall_viii"](index, a1, a2, a3);
+    return Module["dynCall_iiiif"](index, a1, a2, a3, a4);
   } catch (e) {
     if (typeof e !== "number" && e !== "longjmp") throw e;Module["setThrew"](1, 0);
   }
-}function jsCall_viii(index, a1, a2, a3) {
-  Runtime.functionPointers[index](a1, a2, a3);
-}Module.asmGlobalArg = { "Math": Math, "Int8Array": Int8Array, "Int16Array": Int16Array, "Int32Array": Int32Array, "Uint8Array": Uint8Array, "Uint16Array": Uint16Array, "Uint32Array": Uint32Array, "Float32Array": Float32Array, "Float64Array": Float64Array, "NaN": NaN, "Infinity": Infinity };Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_vi": invoke_vi, "jsCall_vi": jsCall_vi, "invoke_iiii": invoke_iiii, "jsCall_iiii": jsCall_iiii, "invoke_viiiji": invoke_viiiji, "jsCall_viiiji": jsCall_viiiji, "invoke_viiij": invoke_viiij, "jsCall_viiij": jsCall_viiij, "invoke_viiiii": invoke_viiiii, "jsCall_viiiii": jsCall_viiiii, "invoke_i": invoke_i, "jsCall_i": jsCall_i, "invoke_iiiji": invoke_iiiji, "jsCall_iiiji": jsCall_iiiji, "invoke_vii": invoke_vii, "jsCall_vii": jsCall_vii, "invoke_ii": invoke_ii, "jsCall_ii": jsCall_ii, "invoke_ji": invoke_ji, "jsCall_ji": jsCall_ji, "invoke_v": invoke_v, "jsCall_v": jsCall_v, "invoke_iiiii": invoke_iiiii, "jsCall_iiiii": jsCall_iiiii, "invoke_viiii": invoke_viiii, "jsCall_viiii": jsCall_viiii, "invoke_iii": invoke_iii, "jsCall_iii": jsCall_iii, "invoke_iiiiii": invoke_iiiiii, "jsCall_iiiiii": jsCall_iiiiii, "invoke_viii": invoke_viii, "jsCall_viii": jsCall_viii, "___syscall221": ___syscall221, "_pthread_cond_wait": _pthread_cond_wait, "_pthread_mutex_init": _pthread_mutex_init, "_pthread_key_create": _pthread_key_create, "__Unwind_FindEnclosingFunction": __Unwind_FindEnclosingFunction, "_emscripten_get_callstack_js": _emscripten_get_callstack_js, "___gxx_personality_v0": ___gxx_personality_v0, "_pthread_rwlock_unlock": _pthread_rwlock_unlock, "___cxa_find_matching_catch_2": ___cxa_find_matching_catch_2, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___buildEnvironment": ___buildEnvironment, "_pthread_cond_init": _pthread_cond_init, "__Unwind_GetIPInfo": __Unwind_GetIPInfo, "_pthread_mutexattr_destroy": _pthread_mutexattr_destroy, "__emscripten_traverse_stack": __emscripten_traverse_stack, "_pthread_cond_destroy": _pthread_cond_destroy, "___setErrNo": ___setErrNo, "_pthread_key_delete": _pthread_key_delete, "___cxa_allocate_exception": ___cxa_allocate_exception, "_emscripten_memcpy_big": _emscripten_memcpy_big, "___resumeException": ___resumeException, "__ZSt18uncaught_exceptionv": __ZSt18uncaught_exceptionv, "_pthread_condattr_setclock": _pthread_condattr_setclock, "_pthread_getspecific": _pthread_getspecific, "___syscall6": ___syscall6, "_pthread_rwlock_rdlock": _pthread_rwlock_rdlock, "_pthread_cond_signal": _pthread_cond_signal, "_pthread_condattr_init": _pthread_condattr_init, "_llvm_fabs_f32": _llvm_fabs_f32, "_pthread_mutex_destroy": _pthread_mutex_destroy, "_pthread_mutexattr_settype": _pthread_mutexattr_settype, "_getenv": _getenv, "_pthread_condattr_destroy": _pthread_condattr_destroy, "___syscall54": ___syscall54, "___unlock": ___unlock, "_pthread_mutexattr_init": _pthread_mutexattr_init, "_llvm_sqrt_f32": _llvm_sqrt_f32, "_pthread_setspecific": _pthread_setspecific, "_dladdr": _dladdr, "___cxa_throw": ___cxa_throw, "___lock": ___lock, "_abort": _abort, "___syscall5": ___syscall5, "___syscall4": ___syscall4, "___syscall3": ___syscall3, "_llvm_cos_f32": _llvm_cos_f32, "___syscall140": ___syscall140, "_llvm_trap": _llvm_trap, "__Unwind_Backtrace": __Unwind_Backtrace, "___syscall146": ___syscall146, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "ABORT": ABORT, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX };var asm = Module["asm"](Module.asmGlobalArg, Module.asmLibraryArg, buffer);Module["asm"] = asm;var _fc_move_stroke = Module["_fc_move_stroke"] = function () {
+}function jsCall_iiiif(index, a1, a2, a3, a4) {
+  return Runtime.functionPointers[index](a1, a2, a3, a4);
+}Module.asmGlobalArg = { "Math": Math, "Int8Array": Int8Array, "Int16Array": Int16Array, "Int32Array": Int32Array, "Uint8Array": Uint8Array, "Uint16Array": Uint16Array, "Uint32Array": Uint32Array, "Float32Array": Float32Array, "Float64Array": Float64Array, "NaN": NaN, "Infinity": Infinity };Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_vi": invoke_vi, "jsCall_vi": jsCall_vi, "invoke_iiii": invoke_iiii, "jsCall_iiii": jsCall_iiii, "invoke_viiiii": invoke_viiiii, "jsCall_viiiii": jsCall_viiiii, "invoke_viiij": invoke_viiij, "jsCall_viiij": jsCall_viiij, "invoke_viii": invoke_viii, "jsCall_viii": jsCall_viii, "invoke_i": invoke_i, "jsCall_i": jsCall_i, "invoke_iiiji": invoke_iiiji, "jsCall_iiiji": jsCall_iiiji, "invoke_vii": invoke_vii, "jsCall_vii": jsCall_vii, "invoke_viiiji": invoke_viiiji, "jsCall_viiiji": jsCall_viiiji, "invoke_ii": invoke_ii, "jsCall_ii": jsCall_ii, "invoke_ji": invoke_ji, "jsCall_ji": jsCall_ji, "invoke_v": invoke_v, "jsCall_v": jsCall_v, "invoke_iiiii": invoke_iiiii, "jsCall_iiiii": jsCall_iiiii, "invoke_viif": invoke_viif, "jsCall_viif": jsCall_viif, "invoke_viiii": invoke_viiii, "jsCall_viiii": jsCall_viiii, "invoke_iii": invoke_iii, "jsCall_iii": jsCall_iii, "invoke_iiiiii": invoke_iiiiii, "jsCall_iiiiii": jsCall_iiiiii, "invoke_iiiif": invoke_iiiif, "jsCall_iiiif": jsCall_iiiif, "___syscall221": ___syscall221, "_pthread_cond_wait": _pthread_cond_wait, "_pthread_mutex_init": _pthread_mutex_init, "_pthread_key_create": _pthread_key_create, "__Unwind_FindEnclosingFunction": __Unwind_FindEnclosingFunction, "_emscripten_get_callstack_js": _emscripten_get_callstack_js, "___gxx_personality_v0": ___gxx_personality_v0, "_pthread_rwlock_unlock": _pthread_rwlock_unlock, "___cxa_find_matching_catch_2": ___cxa_find_matching_catch_2, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___buildEnvironment": ___buildEnvironment, "_pthread_cond_init": _pthread_cond_init, "__Unwind_GetIPInfo": __Unwind_GetIPInfo, "_pthread_mutexattr_destroy": _pthread_mutexattr_destroy, "__emscripten_traverse_stack": __emscripten_traverse_stack, "_pthread_cond_destroy": _pthread_cond_destroy, "___setErrNo": ___setErrNo, "_pthread_key_delete": _pthread_key_delete, "___cxa_allocate_exception": ___cxa_allocate_exception, "_emscripten_memcpy_big": _emscripten_memcpy_big, "___resumeException": ___resumeException, "__ZSt18uncaught_exceptionv": __ZSt18uncaught_exceptionv, "_pthread_condattr_setclock": _pthread_condattr_setclock, "_pthread_getspecific": _pthread_getspecific, "___syscall6": ___syscall6, "_pthread_rwlock_rdlock": _pthread_rwlock_rdlock, "_pthread_cond_signal": _pthread_cond_signal, "_pthread_condattr_init": _pthread_condattr_init, "_llvm_fabs_f32": _llvm_fabs_f32, "_pthread_mutex_destroy": _pthread_mutex_destroy, "_pthread_mutexattr_settype": _pthread_mutexattr_settype, "_getenv": _getenv, "_pthread_condattr_destroy": _pthread_condattr_destroy, "___syscall54": ___syscall54, "___unlock": ___unlock, "_pthread_mutexattr_init": _pthread_mutexattr_init, "_llvm_sqrt_f32": _llvm_sqrt_f32, "_pthread_setspecific": _pthread_setspecific, "_dladdr": _dladdr, "___cxa_throw": ___cxa_throw, "___lock": ___lock, "_abort": _abort, "___syscall5": ___syscall5, "___syscall4": ___syscall4, "___syscall3": ___syscall3, "_llvm_cos_f32": _llvm_cos_f32, "___syscall140": ___syscall140, "_llvm_trap": _llvm_trap, "__Unwind_Backtrace": __Unwind_Backtrace, "___syscall146": ___syscall146, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "ABORT": ABORT, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX };var asm = Module["asm"](Module.asmGlobalArg, Module.asmLibraryArg, buffer);Module["asm"] = asm;var _fc_move_stroke = Module["_fc_move_stroke"] = function () {
   return Module["asm"]["_fc_move_stroke"].apply(null, arguments);
+};var _fc_get_current_tool_param = Module["_fc_get_current_tool_param"] = function () {
+  return Module["asm"]["_fc_get_current_tool_param"].apply(null, arguments);
 };var _fc_end_stroke = Module["_fc_end_stroke"] = function () {
   return Module["asm"]["_fc_end_stroke"].apply(null, arguments);
+};var _fc_get_current_tool_param_format = Module["_fc_get_current_tool_param_format"] = function () {
+  return Module["asm"]["_fc_get_current_tool_param_format"].apply(null, arguments);
 };var stackSave = Module["stackSave"] = function () {
   return Module["asm"]["stackSave"].apply(null, arguments);
+};var _fc_select_tool = Module["_fc_select_tool"] = function () {
+  return Module["asm"]["_fc_select_tool"].apply(null, arguments);
 };var _register_js_reallocate = Module["_register_js_reallocate"] = function () {
   return Module["asm"]["_register_js_reallocate"].apply(null, arguments);
 };var establishStackSpace = Module["establishStackSpace"] = function () {
   return Module["asm"]["establishStackSpace"].apply(null, arguments);
 };var setThrew = Module["setThrew"] = function () {
   return Module["asm"]["setThrew"].apply(null, arguments);
+};var _fc_clear_edges = Module["_fc_clear_edges"] = function () {
+  return Module["asm"]["_fc_clear_edges"].apply(null, arguments);
 };var _fc_load_obj_file = Module["_fc_load_obj_file"] = function () {
   return Module["asm"]["_fc_load_obj_file"].apply(null, arguments);
+};var _fc_get_error_message_length = Module["_fc_get_error_message_length"] = function () {
+  return Module["asm"]["_fc_get_error_message_length"].apply(null, arguments);
 };var _fflush = Module["_fflush"] = function () {
   return Module["asm"]["_fflush"].apply(null, arguments);
 };var setTempRet0 = Module["setTempRet0"] = function () {
   return Module["asm"]["setTempRet0"].apply(null, arguments);
+};var _register_js_allocate = Module["_register_js_allocate"] = function () {
+  return Module["asm"]["_register_js_allocate"].apply(null, arguments);
 };var _llvm_ctlz_i64 = Module["_llvm_ctlz_i64"] = function () {
   return Module["asm"]["_llvm_ctlz_i64"].apply(null, arguments);
 };var _memset = Module["_memset"] = function () {
@@ -2708,8 +2736,10 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   return Module["asm"]["_sbrk"].apply(null, arguments);
 };var _memcpy = Module["_memcpy"] = function () {
   return Module["asm"]["_memcpy"].apply(null, arguments);
-};var _llvm_bswap_i32 = Module["_llvm_bswap_i32"] = function () {
-  return Module["asm"]["_llvm_bswap_i32"].apply(null, arguments);
+};var _fc_get_current_tool_name = Module["_fc_get_current_tool_name"] = function () {
+  return Module["asm"]["_fc_get_current_tool_name"].apply(null, arguments);
+};var _fc_update_edges = Module["_fc_update_edges"] = function () {
+  return Module["asm"]["_fc_update_edges"].apply(null, arguments);
 };var stackAlloc = Module["stackAlloc"] = function () {
   return Module["asm"]["stackAlloc"].apply(null, arguments);
 };var getTempRet0 = Module["getTempRet0"] = function () {
@@ -2718,6 +2748,8 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   return Module["asm"]["_ntohs"].apply(null, arguments);
 };var _htonl = Module["_htonl"] = function () {
   return Module["asm"]["_htonl"].apply(null, arguments);
+};var _fc_export_obj_file = Module["_fc_export_obj_file"] = function () {
+  return Module["asm"]["_fc_export_obj_file"].apply(null, arguments);
 };var _fc_begin_stroke = Module["_fc_begin_stroke"] = function () {
   return Module["asm"]["_fc_begin_stroke"].apply(null, arguments);
 };var _pthread_mutex_unlock = Module["_pthread_mutex_unlock"] = function () {
@@ -2730,8 +2762,10 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   return Module["asm"]["_emscripten_get_global_libc"].apply(null, arguments);
 };var _htons = Module["_htons"] = function () {
   return Module["asm"]["_htons"].apply(null, arguments);
-};var ___errno_location = Module["___errno_location"] = function () {
-  return Module["asm"]["___errno_location"].apply(null, arguments);
+};var _fc_set_current_tool_param = Module["_fc_set_current_tool_param"] = function () {
+  return Module["asm"]["_fc_set_current_tool_param"].apply(null, arguments);
+};var _llvm_bswap_i32 = Module["_llvm_bswap_i32"] = function () {
+  return Module["asm"]["_llvm_bswap_i32"].apply(null, arguments);
 };var _free = Module["_free"] = function () {
   return Module["asm"]["_free"].apply(null, arguments);
 };var runPostSets = Module["runPostSets"] = function () {
@@ -2746,28 +2780,32 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   return Module["asm"]["_register_js_free"].apply(null, arguments);
 };var _malloc = Module["_malloc"] = function () {
   return Module["asm"]["_malloc"].apply(null, arguments);
-};var _register_js_allocate = Module["_register_js_allocate"] = function () {
-  return Module["asm"]["_register_js_allocate"].apply(null, arguments);
+};var ___errno_location = Module["___errno_location"] = function () {
+  return Module["asm"]["___errno_location"].apply(null, arguments);
 };var _pthread_mutex_lock = Module["_pthread_mutex_lock"] = function () {
   return Module["asm"]["_pthread_mutex_lock"].apply(null, arguments);
+};var _fc_get_error_message = Module["_fc_get_error_message"] = function () {
+  return Module["asm"]["_fc_get_error_message"].apply(null, arguments);
 };var _fc_create_obj = Module["_fc_create_obj"] = function () {
   return Module["asm"]["_fc_create_obj"].apply(null, arguments);
 };var dynCall_vi = Module["dynCall_vi"] = function () {
   return Module["asm"]["dynCall_vi"].apply(null, arguments);
 };var dynCall_iiii = Module["dynCall_iiii"] = function () {
   return Module["asm"]["dynCall_iiii"].apply(null, arguments);
-};var dynCall_viiiji = Module["dynCall_viiiji"] = function () {
-  return Module["asm"]["dynCall_viiiji"].apply(null, arguments);
-};var dynCall_viiij = Module["dynCall_viiij"] = function () {
-  return Module["asm"]["dynCall_viiij"].apply(null, arguments);
 };var dynCall_viiiii = Module["dynCall_viiiii"] = function () {
   return Module["asm"]["dynCall_viiiii"].apply(null, arguments);
+};var dynCall_viiij = Module["dynCall_viiij"] = function () {
+  return Module["asm"]["dynCall_viiij"].apply(null, arguments);
+};var dynCall_viii = Module["dynCall_viii"] = function () {
+  return Module["asm"]["dynCall_viii"].apply(null, arguments);
 };var dynCall_i = Module["dynCall_i"] = function () {
   return Module["asm"]["dynCall_i"].apply(null, arguments);
 };var dynCall_iiiji = Module["dynCall_iiiji"] = function () {
   return Module["asm"]["dynCall_iiiji"].apply(null, arguments);
 };var dynCall_vii = Module["dynCall_vii"] = function () {
   return Module["asm"]["dynCall_vii"].apply(null, arguments);
+};var dynCall_viiiji = Module["dynCall_viiiji"] = function () {
+  return Module["asm"]["dynCall_viiiji"].apply(null, arguments);
 };var dynCall_ii = Module["dynCall_ii"] = function () {
   return Module["asm"]["dynCall_ii"].apply(null, arguments);
 };var dynCall_ji = Module["dynCall_ji"] = function () {
@@ -2776,14 +2814,16 @@ var Module;if (!Module) Module = (typeof Module !== "undefined" ? Module : null)
   return Module["asm"]["dynCall_v"].apply(null, arguments);
 };var dynCall_iiiii = Module["dynCall_iiiii"] = function () {
   return Module["asm"]["dynCall_iiiii"].apply(null, arguments);
+};var dynCall_viif = Module["dynCall_viif"] = function () {
+  return Module["asm"]["dynCall_viif"].apply(null, arguments);
 };var dynCall_viiii = Module["dynCall_viiii"] = function () {
   return Module["asm"]["dynCall_viiii"].apply(null, arguments);
 };var dynCall_iii = Module["dynCall_iii"] = function () {
   return Module["asm"]["dynCall_iii"].apply(null, arguments);
 };var dynCall_iiiiii = Module["dynCall_iiiiii"] = function () {
   return Module["asm"]["dynCall_iiiiii"].apply(null, arguments);
-};var dynCall_viii = Module["dynCall_viii"] = function () {
-  return Module["asm"]["dynCall_viii"].apply(null, arguments);
+};var dynCall_iiiif = Module["dynCall_iiiif"] = function () {
+  return Module["asm"]["dynCall_iiiif"].apply(null, arguments);
 };Runtime.stackAlloc = Module["stackAlloc"];Runtime.stackSave = Module["stackSave"];Runtime.stackRestore = Module["stackRestore"];Runtime.establishStackSpace = Module["establishStackSpace"];Runtime.setTempRet0 = Module["setTempRet0"];Runtime.getTempRet0 = Module["getTempRet0"];Module["asm"] = asm;if (memoryInitializer) {
   if (typeof Module["locateFile"] === "function") {
     memoryInitializer = Module["locateFile"](memoryInitializer);
